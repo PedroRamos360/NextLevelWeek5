@@ -38,13 +38,12 @@ export default function Header() {
       // Gambiarra 100%
       const interval = setInterval(() => {
          setCount(() => count + 1);
-      }, 20000);
+      }, 5000);
 
 
       async function loadStorageUsernameAndUserImg() {
          const user = await AsyncStorage.getItem('@plantmanager:user');
          const image = await AsyncStorage.getItem('@plantmanager:userImage');
-         console.log(image);
          setUsername(user || '');
          setUserImg(image || '');
       }

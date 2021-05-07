@@ -49,21 +49,25 @@ export default function MyPlants() {
    useEffect(() => {
       async function loadStorageData() {
          const plantsStoraged = await loadPlant();
+         console.log(plantsStoraged);
+         try {
+            const nextTime = formatDistance(
+               new Date(plantsStoraged[0].dateTimeNotification).getTime(),
+               new Date().getTime(),
+               { locale: pt }
+            )
 
-         const nextTime = formatDistance(
-            new Date(plantsStoraged[0].dateTimeNotification).getTime(),
-            new Date().getTime(),
-            { locale: pt }
-         )
-
-         setNextWatered(
-            `Não esqueça de regar a ${plantsStoraged[0].name} daqui a ${nextTime}`
-         )
-
+            setNextWatered(
+               `Não esqueça de regar a ${plantsStoraged[0].name} daqui a ${nextTime}`
+            )
+         } catch {
+            setNextWatered(
+               'Nenhuma planta para ser regada ainda'
+            )
+         }
          setMyPlants(plantsStoraged);
          setLoading(false);
       }
-
       loadStorageData();
    }, []);
 
